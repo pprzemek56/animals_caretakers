@@ -1,12 +1,12 @@
-﻿namespace AnimalCaretakers.Api.Models.Auth;
+﻿using AnimalCaretakers.Data.Enums;
+
+namespace AnimalCaretakers.Api.Models.Auth;
 
 public class RegisterFormModel
 {
     public string GivenName { get; set; }
-
     public string Surname { get; set; }
-
     public string Username { get; set; }
-
     public string Password { get; set; }
+    public UserType UserType { get; set; }
 }

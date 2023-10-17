@@ -12,7 +12,8 @@ public class AddUsersTable : Migration
             .WithColumn("GivenName").AsString(60).Nullable()
             .WithColumn("Surname").AsString(60).Nullable()
             .WithColumn("Username").AsString(60).NotNullable()
-            .WithColumn("Password").AsString(60).NotNullable();
+            .WithColumn("Password").AsString(60).NotNullable()
+            .WithColumn("UserType").AsInt32().NotNullable();
     }
 
     public override void Down()
