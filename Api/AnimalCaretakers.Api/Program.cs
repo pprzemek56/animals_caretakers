@@ -1,3 +1,4 @@
+using AnimalCaretakers.Api.Services;
 using AnimalCaretakers.Data;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Services
+builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddFluentMigratorCore()
                 .ConfigureRunner(o => o.AddSqlServer()
