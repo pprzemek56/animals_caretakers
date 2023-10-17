@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 // Services
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<UsersService>();
 
 builder.Services.AddFluentMigratorCore()
                 .ConfigureRunner(o => o.AddSqlServer()

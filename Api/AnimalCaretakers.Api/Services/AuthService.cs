@@ -1,7 +1,6 @@
 ﻿using AnimalCaretakers.Api.Models.Auth;
 using AnimalCaretakers.Data;
 using AnimalCaretakers.Data.Models;
-using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OneOf;
@@ -73,11 +72,11 @@ public class AuthService
 
     public async Task<OneOf<Success, Error<string>>> Register(RegisterFormModel form)
     {
-        if(await _context.Users.AnyAsync(p => p.Username == form.Username))
+        if (await _context.Users.AnyAsync(p => p.Username == form.Username))
         {
             return new Error<string>("Użytkownik o podanej nazwie już istnieje");
         }
-        
+
         // todo: use mapper
         var user = new User
         {
