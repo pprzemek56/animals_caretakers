@@ -15,6 +15,10 @@
 
 .App-header {
   background-color: #282c34;
+  background-image: url(/public/mainpage.webp);
+  background-size:70%;
+  background-repeat: no-repeat;
+  background-position: center top;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
