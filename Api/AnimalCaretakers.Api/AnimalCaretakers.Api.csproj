@@ -20,4 +20,8 @@
     <ProjectReference Include="..\AnimalCaretakers.Data\AnimalCaretakers.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Users\" />
+  </ItemGroup>
+
 </Project>

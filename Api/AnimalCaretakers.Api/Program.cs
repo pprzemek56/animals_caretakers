@@ -49,7 +49,7 @@ builder.Services.AddSwaggerGen(o =>
 
 // Services
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<UsersService>();
+builder.Services.AddScoped<EmployeeService>();
 
 builder.Services.AddFluentMigratorCore()
                 .ConfigureRunner(o => o.AddSqlServer()

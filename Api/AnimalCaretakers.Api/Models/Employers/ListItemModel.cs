@@ -1,4 +1,4 @@
-﻿namespace AnimalCaretakers.Api.Models.Users;
+﻿namespace AnimalCaretakers.Api.Models.Employers;
 
 public class ListItemModel
 {

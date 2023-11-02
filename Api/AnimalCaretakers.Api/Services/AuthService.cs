@@ -57,7 +57,7 @@ public class AuthService
                     new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                     new Claim(JwtRegisteredClaimNames.Email, user.Username),
                     new Claim(ClaimTypes.Role, user.UserTypeEnum.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString())
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                 }),
             Expires = DateTime.UtcNow.AddMinutes(5),
             Issuer = issuer,

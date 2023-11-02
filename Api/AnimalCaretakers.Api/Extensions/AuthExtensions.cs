@@ -10,6 +10,11 @@ public static class AuthExtensions
     {
         return user.HasClaim(ClaimTypes.Role, userType.ToString());
     }
+
+    public static long Id(this ClaimsPrincipal user)
+    {
+        return long.Parse(user.FindFirst(ClaimTypes.NameIdentifier).Value);
+    }
 }
 
 public class AuthorizeUserTypeAttribute : AuthorizeAttribute

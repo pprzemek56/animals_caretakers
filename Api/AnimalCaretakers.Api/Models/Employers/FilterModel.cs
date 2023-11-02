@@ -1,7 +1,7 @@
 ﻿using AnimalCaretakers.Api.Extensions;
 using AnimalCaretakers.Data.Models;
 
-namespace AnimalCaretakers.Api.Models.Users;
+namespace AnimalCaretakers.Api.Models.Employers;
 
 public class FilterModel : IFilter<User>
 {
