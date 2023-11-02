@@ -18,4 +18,6 @@ public partial class User
     public string Password { get; set; }
 
     public int UserType { get; set; }
+
+    public int VisitCounter { get; set; }
 }

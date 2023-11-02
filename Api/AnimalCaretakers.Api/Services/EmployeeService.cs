@@ -36,16 +36,19 @@ public class EmployeeService
 
     public async Task<DetailsModel> GetEmployee(long userId)
     {
-        return await _context.Users
-            .AsNoTracking()
-            .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)
-            .Select(p => new DetailsModel
-            {
-                Id = p.Id,
-                GivenName = p.GivenName,
-                Surname = p.Surname
-            })
+        var user = await _context.Users
+            .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)            
             .FirstOrDefaultAsync();
+            
+        user.VisitCounter ++;
+        await _context.SaveChangesAsync();
+
+        return new DetailsModel 
+        {
+            Id = user.Id,
+            GivenName = user.GivenName,
+            Surname = user.Surname
+        };
     }
 
     public async Task<OneOf<DetailsModel, NotFound>> UpdateEmployee(long userId, UpdateModel form)
