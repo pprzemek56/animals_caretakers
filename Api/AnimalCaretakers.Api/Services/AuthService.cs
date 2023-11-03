@@ -85,7 +85,8 @@ public class AuthService
             Password = HashPassword(form.Password),
             Surname = form.Surname,
             Username = form.Username,
-            UserTypeEnum = form.UserType
+            UserTypeEnum = form.UserType,
+            SensitiveInfo = new UserSensitiveInfo()
         };
 
         _context.Add(user);

@@ -12,6 +12,8 @@ namespace AnimalCaretakers.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<User> entity)
         {
+            entity.HasIndex(e => e.SensitiveInfoId, "IX_Users_SensitiveInfoId").IsUnique();
+
             entity.Property(e => e.GivenName).HasMaxLength(60);
             entity.Property(e => e.Password)
             .IsRequired()
@@ -20,6 +22,10 @@ namespace AnimalCaretakers.Data.Configurations
             entity.Property(e => e.Username)
             .IsRequired()
             .HasMaxLength(60);
+
+            entity.HasOne(d => d.SensitiveInfo).WithOne(p => p.User)
+            .HasForeignKey<User>(d => d.SensitiveInfoId)
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
             OnConfigurePartial(entity);
         }

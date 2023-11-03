@@ -2,19 +2,25 @@ using AnimalCaretakers.Api.Extensions;
 using AnimalCaretakers.Api.Models.Employers;
 using AnimalCaretakers.Api.Services;
 using AnimalCaretakers.Data.Enums;
-using AnimalCaretakers.Data.Models;
 using AnimalCaretakers.Paginations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalCaretakers.Api.Controllers;
 
+/// <summary>
+/// Employee related endpoints
+/// </summary>
 [ApiController]
 [Route("api/employers")]
 public class EmployeeController : ControllerBase
 {
     private readonly EmployeeService _employeeService;
 
+    /// <summary>
+    /// Constructor for EmployeeController with injected EmployeeService
+    /// </summary>
+    /// <param name="usersService">Injected service</param>
     public EmployeeController(EmployeeService usersService)
     {
         _employeeService = usersService;
@@ -38,6 +44,26 @@ public class EmployeeController : ControllerBase
     }
 
     /// <summary>
+    /// Fetch employee by id without details informations
+    /// Allowed for everybody
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns>Employee details</returns>
+    [HttpGet("public/{userId}")]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<DetailsModel>> GetEmployeePublicInfo(long userId)
+    {
+        var result = await _employeeService.GetEmployee(userId, true, true);
+
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
+    /// <summary>
     /// Fetch employee by id with details informations
     /// Allowed only for recruiter
     /// </summary>
@@ -49,7 +75,7 @@ public class EmployeeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DetailsModel>> GetEmployee(long userId)
     {
-        var result = await _employeeService.GetEmployee(userId);
+        var result = await _employeeService.GetEmployee(userId, true, false);
 
         if (result == null)
             return NotFound();
@@ -68,7 +94,7 @@ public class EmployeeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Pagination<ListItemModel>>> GetMyAccount()
     {
-        var result = await _employeeService.GetEmployee(User.Id());
+        var result = await _employeeService.GetEmployee(User.Id(), false, false);
 
         if (result == null)
             return NotFound();
@@ -93,25 +119,24 @@ public class EmployeeController : ControllerBase
     }
 
     /// <summary>
-    /// Delete an employee.
-    /// Allowed only for recruiters.
+    /// Delete current logged employee.
+    /// Allowed only for Employee.
     /// </summary>
-    /// <param name="userId">The ID of the employee to delete.</param>
-    /// <returns>Returns 200 OK if the employee was successfully deleted. 
-    /// Returns 404 Not Found if the employee with the provided ID was not found. 
-    /// Returns 500 Internal Server Error in case of an error during the deletion process.</returns>
-    [HttpDelete("{userId}")]
-    [AuthorizeUserType(UserType.Recruiter)]
+    /// <returns>
+    /// Returns 200 OK if the employee was successfully deleted. 
+    /// Returns 404 Not Found if the employee was not found. 
+    /// </returns>
+    [HttpDelete]
+    [AuthorizeUserType(UserType.Employee)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteEmployee(long userId)
+    public async Task<IActionResult> DeleteEmployee()
     {
-        var result = await _employeeService.DeleteEmployee(userId);
+        var result = await _employeeService.DeleteEmployee(User.Id());
 
-         return result.Match(
-            success => Ok("Usunięto pracownika."),
-            notFound => NotFound("Nie znaleziono takiego pracownika."),
-            error => StatusCode(500, "Wystąpił błąd podczas usuwania pracownika.")
+         return result.Match<IActionResult>(
+            success => Ok(),
+            notFound => NotFound()
         );
     }
 }

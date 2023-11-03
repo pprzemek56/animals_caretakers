@@ -2,6 +2,7 @@
 using AnimalCaretakers.Api.Models.Employers;
 using AnimalCaretakers.Data;
 using AnimalCaretakers.Data.Enums;
+using AnimalCaretakers.Data.Models;
 using AnimalCaretakers.Paginations;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
@@ -34,26 +35,34 @@ public class EmployeeService
             .ToListAsync();
     }
 
-    public async Task<DetailsModel> GetEmployee(long userId)
+    public async Task<DetailsModel> GetEmployee(long userId, bool incrementVisitCounter, bool onlyPublicInfo)
     {
         var user = await _context.Users
-            .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)            
+            .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)
             .FirstOrDefaultAsync();
-            
-        user.VisitCounter ++;
-        await _context.SaveChangesAsync();
 
-        return new DetailsModel 
+        if (incrementVisitCounter)
+        {
+            user.VisitCounter++;
+            await _context.SaveChangesAsync();
+        }
+
+        return new DetailsModel
         {
             Id = user.Id,
             GivenName = user.GivenName,
-            Surname = user.Surname
+            Surname = user.Surname,
+            Skills = user.SensitiveInfo.Skills.Get(onlyPublicInfo),
+            Portfolio = user.SensitiveInfo.Portfolio.Get(onlyPublicInfo),
+            Succeses = user.SensitiveInfo.Succeses.Get(onlyPublicInfo),
+            ExpectedSalary = user.SensitiveInfo.ExpectedSalary.Get(onlyPublicInfo)
         };
     }
 
     public async Task<OneOf<DetailsModel, NotFound>> UpdateEmployee(long userId, UpdateModel form)
     {
         var user = await _context.Users
+            .Include(p => p.SensitiveInfo)
             .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)
             .FirstOrDefaultAsync();
 
@@ -61,7 +70,11 @@ public class EmployeeService
 
         user.GivenName = form.GivenName;
         user.Surname = form.Surname;
-        // TODO: update list of details informations
+
+        user.SensitiveInfo.Skills = form.Skills;
+        user.SensitiveInfo.Portfolio = form.Portfolio;
+        user.SensitiveInfo.Succeses = form.Succeses;
+        user.SensitiveInfo.ExpectedSalary = form.ExpectedSalary;
 
         await _context.SaveChangesAsync();
         
@@ -73,7 +86,7 @@ public class EmployeeService
         };
     }
 
-    public async Task<OneOf<Success, NotFound, Error>> DeleteEmployee(long userId)
+    public async Task<OneOf<Success, NotFound>> DeleteEmployee(long userId)
     {
          var user = await _context.Users
             .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)
@@ -81,14 +94,8 @@ public class EmployeeService
 
         if (user == null) return new NotFound();
 
-        try {
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-        }
-        catch (Exception) 
-        {
-            return new Error();
-        }
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
         
         return new Success();
     }

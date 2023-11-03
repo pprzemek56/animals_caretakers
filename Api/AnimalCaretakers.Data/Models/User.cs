@@ -20,4 +20,8 @@ public partial class User
     public int UserType { get; set; }
 
     public int VisitCounter { get; set; }
+
+    public long SensitiveInfoId { get; set; }
+
+    public virtual UserSensitiveInfo SensitiveInfo { get; set; }
 }
