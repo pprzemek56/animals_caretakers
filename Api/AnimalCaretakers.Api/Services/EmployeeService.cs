@@ -72,4 +72,24 @@ public class EmployeeService
             Surname = user.Surname
         };
     }
+
+    public async Task<OneOf<Success, NotFound, Error>> DeleteEmployee(long userId)
+    {
+         var user = await _context.Users
+            .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)
+            .FirstOrDefaultAsync();
+
+        if (user == null) return new NotFound();
+
+        try {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception) 
+        {
+            return new Error();
+        }
+        
+        return new Success();
+    }
 }

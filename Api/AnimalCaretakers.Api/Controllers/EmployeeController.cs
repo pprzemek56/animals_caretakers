@@ -91,4 +91,27 @@ public class EmployeeController : ControllerBase
      
         return result.Match<ActionResult>(p => Accepted(p), p => NotFound());
     }
+
+    /// <summary>
+    /// Delete an employee.
+    /// Allowed only for recruiters.
+    /// </summary>
+    /// <param name="userId">The ID of the employee to delete.</param>
+    /// <returns>Returns 200 OK if the employee was successfully deleted. 
+    /// Returns 404 Not Found if the employee with the provided ID was not found. 
+    /// Returns 500 Internal Server Error in case of an error during the deletion process.</returns>
+    [HttpDelete("{userId}")]
+    [AuthorizeUserType(UserType.Recruiter)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteEmployee(long userId)
+    {
+        var result = await _employeeService.DeleteEmployee(userId);
+
+         return result.Match(
+            success => Ok("Usunięto pracownika."),
+            notFound => NotFound("Nie znaleziono takiego pracownika."),
+            error => StatusCode(500, "Wystąpił błąd podczas usuwania pracownika.")
+        );
+    }
 }
