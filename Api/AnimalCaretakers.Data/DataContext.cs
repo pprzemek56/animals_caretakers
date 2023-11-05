@@ -15,12 +15,15 @@ public partial class DataContext : DbContext
     {
     }
 
+    public virtual DbSet<ToSeePlan> ToSeePlans { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserSensitiveInfo> UserSensitiveInfos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+            modelBuilder.ApplyConfiguration(new Configurations.ToSeePlanConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.UserConfiguration());
             modelBuilder.ApplyConfiguration(new Configurations.UserSensitiveInfoConfiguration());
 

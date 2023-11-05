@@ -24,4 +24,8 @@ public partial class User
     public long SensitiveInfoId { get; set; }
 
     public virtual UserSensitiveInfo SensitiveInfo { get; set; }
+
+    public virtual ICollection<ToSeePlan> ToSeePlanEmployees { get; } = new List<ToSeePlan>();
+
+    public virtual ICollection<ToSeePlan> ToSeePlanRecruiters { get; } = new List<ToSeePlan>();
 }

@@ -25,7 +25,8 @@ namespace AnimalCaretakers.Data.Configurations
 
             entity.HasOne(d => d.SensitiveInfo).WithOne(p => p.User)
             .HasForeignKey<User>(d => d.SensitiveInfoId)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_Users_SensitiveInfoId_UserSensitiveInfos_Id");
 
             OnConfigurePartial(entity);
         }
