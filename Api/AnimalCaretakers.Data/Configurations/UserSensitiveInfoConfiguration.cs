@@ -13,15 +13,9 @@ namespace AnimalCaretakers.Data.Configurations
         public void Configure(EntityTypeBuilder<UserSensitiveInfo> entity)
         {
             entity.Property(e => e.ExpectedSalaryValue).HasPrecision(19, 5);
-            entity.Property(e => e.PortfolioValue)
-            .IsRequired()
-            .HasMaxLength(512);
-            entity.Property(e => e.SkillsValue)
-            .IsRequired()
-            .HasMaxLength(512);
-            entity.Property(e => e.SuccesesValue)
-            .IsRequired()
-            .HasMaxLength(512);
+            entity.Property(e => e.PortfolioValue).HasMaxLength(512);
+            entity.Property(e => e.SkillsValue).HasMaxLength(512);
+            entity.Property(e => e.SuccesesValue).HasMaxLength(512);
 
             OnConfigurePartial(entity);
         }

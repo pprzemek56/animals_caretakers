@@ -35,11 +35,15 @@ public class EmployeeService
             .ToListAsync();
     }
 
-    public async Task<DetailsModel> GetEmployee(long userId, bool incrementVisitCounter, bool onlyPublicInfo)
+    public async Task<OneOf<DetailsModel, NotFound>> GetEmployee(long userId, bool incrementVisitCounter, bool onlyPublicInfo)
     {
         var user = await _context.Users
+            .Include(p => p.SensitiveInfo)
             .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)
             .FirstOrDefaultAsync();
+
+        if(user == null) 
+            return new NotFound();
 
         if (incrementVisitCounter)
         {

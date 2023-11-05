@@ -38,7 +38,7 @@ public partial class UserSensitiveInfo
     }
 
     [NotMapped]
-    public SensitiveInfo<decimal> ExpectedSalary
+    public SensitiveInfo<decimal?> ExpectedSalary
     {
         get => new(ExpectedSalaryValue, ExpectedSalaryIsPublic);
         set

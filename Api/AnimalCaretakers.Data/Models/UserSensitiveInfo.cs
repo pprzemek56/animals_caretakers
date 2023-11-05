@@ -21,7 +21,7 @@ public partial class UserSensitiveInfo
 
     public bool SuccesesIsPublic { get; set; }
 
-    public decimal ExpectedSalaryValue { get; set; }
+    public decimal? ExpectedSalaryValue { get; set; }
 
     public bool ExpectedSalaryIsPublic { get; set; }
 

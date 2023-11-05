@@ -9,5 +9,5 @@ public class UpdateModel
     public SensitiveInfo<string> Skills { get; set; }
     public SensitiveInfo<string> Portfolio { get; set; }
     public SensitiveInfo<string> Succeses { get; set; }
-    public SensitiveInfo<decimal> ExpectedSalary { get; set; }
+    public SensitiveInfo<decimal?> ExpectedSalary { get; set; }
 }

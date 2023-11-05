@@ -54,11 +54,9 @@ public class AuthService
         {
             Subject = new ClaimsIdentity(new[]
             {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Username),
-                    new Claim(ClaimTypes.Role, user.UserTypeEnum.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-                }),
+                new Claim(ClaimTypes.Role, user.UserTypeEnum.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            }),
             Expires = DateTime.UtcNow.AddMinutes(5),
             Issuer = issuer,
             Audience = audience,

@@ -51,16 +51,13 @@ public class EmployeeController : ControllerBase
     /// <returns>Employee details</returns>
     [HttpGet("public/{userId}")]
     [AllowAnonymous]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailsModel))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DetailsModel>> GetEmployeePublicInfo(long userId)
     {
         var result = await _employeeService.GetEmployee(userId, true, true);
 
-        if (result == null)
-            return NotFound();
-
-        return Ok(result);
+        return result.Match<ActionResult>(p => Ok(p), p => NotFound());
     }
 
     /// <summary>
@@ -71,16 +68,13 @@ public class EmployeeController : ControllerBase
     /// <returns>Employee details</returns>
     [HttpGet("{userId}")]
     [AuthorizeUserType(UserType.Recruiter)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailsModel))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DetailsModel>> GetEmployee(long userId)
     {
         var result = await _employeeService.GetEmployee(userId, true, false);
 
-        if (result == null)
-            return NotFound();
-
-        return Ok(result);
+        return result.Match<ActionResult>(p => Ok(p), p => NotFound());
     }
 
     /// <summary>
@@ -90,16 +84,13 @@ public class EmployeeController : ControllerBase
     /// <returns>Employee details</returns>
     [HttpGet("me")]
     [AuthorizeUserType(UserType.Employee)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailsModel))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Pagination<ListItemModel>>> GetMyAccount()
+    public async Task<ActionResult<DetailsModel>> GetMyAccount()
     {
         var result = await _employeeService.GetEmployee(User.Id(), false, false);
 
-        if (result == null)
-            return NotFound();
-
-        return Ok(result);
+        return result.Match<ActionResult>(p => Ok(p), p => NotFound());
     }
 
     /// <summary>
@@ -109,7 +100,7 @@ public class EmployeeController : ControllerBase
     /// <returns></returns>
     [HttpPut]
     [AuthorizeUserType(UserType.Employee)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailsModel))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DetailsModel>> UpdateMyAccount(UpdateModel form)
     {
@@ -128,7 +119,7 @@ public class EmployeeController : ControllerBase
     /// </returns>
     [HttpDelete]
     [AuthorizeUserType(UserType.Employee)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteEmployee()
     {
