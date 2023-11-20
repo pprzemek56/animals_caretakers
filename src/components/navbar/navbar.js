@@ -24,7 +24,7 @@ function Navbar() {
           <nav className="navbar">
             <ul>
               <li><a href="/">Home</a></li>
-              <li><button onClick={handleLoginClick} className="button">Log in</button></li>
+              <li><a onClick={handleLoginClick} className="button">Log in</a></li>
               <li><a href="/profile" className="button">Profile</a></li>
             </ul>
           </nav>
