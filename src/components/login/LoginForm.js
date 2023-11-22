@@ -10,14 +10,14 @@ function LoginForm({ onClose, onSignUp }) {
   return (
     <div className="login-form-overlay" onClick={onClose}>
       <div className="login-form" onClick={handleFormClick}>
-        <h2>Log In</h2>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+        <h2 class="mb-4">Log In</h2>
+        <input type="email" class="pb-6" placeholder="Email" />
+        <input type="password" class="pt-4" placeholder="Password" />
         <button onClick={onClose}>Log in</button>
-        <p>
+        <p class="mb-5">
           Don't have an account yet?
-          <button onClick={onSignUp}>Sign up</button>
         </p>
+        <button onClick={onSignUp}>Sign up</button>
       </div>
     </div>
   );
