@@ -84,7 +84,9 @@ public class AuthService
             Surname = form.Surname,
             Username = form.Username,
             UserTypeEnum = form.UserType,
-            SensitiveInfo = new UserSensitiveInfo()
+            /*SensitiveInfo = new UserSensitiveInfo()*/
+            SensitiveInfo = new UserSensitiveInfo { SkillsValue = "", ExpectedSalaryValue = 0, PortfolioValue = "", SuccesesValue = "" },
+
         };
 
         _context.Add(user);

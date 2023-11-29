@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<DataContext>(options =>
-                            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                            options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -59,7 +59,7 @@ builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<ToSeePlansService>();
 
 builder.Services.AddFluentMigratorCore()
-                .ConfigureRunner(o => o.AddSqlServer()
+                .ConfigureRunner(o => o.AddSQLite()
                                        .WithGlobalConnectionString(builder.Configuration.GetConnectionString("DefaultConnection"))
                                        .ScanIn(typeof(DataContext).Assembly).For.Migrations());
 
@@ -99,7 +99,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(p =>
+{
+    p.AllowAnyHeader();
+    p.AllowAnyOrigin();
+    p.AllowAnyMethod();
+});
 app.UseAuthentication();
 app.UseAuthorization();
 
