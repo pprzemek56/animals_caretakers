@@ -12,7 +12,7 @@ namespace AnimalCaretakers.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<UserSensitiveInfo> entity)
         {
-            entity.Property(e => e.ExpectedSalaryValue).HasColumnType("decimal(19, 5)");
+            entity.Property(e => e.ExpectedSalaryValue);
             entity.Property(e => e.PortfolioValue).HasMaxLength(512);
             entity.Property(e => e.SkillsValue).HasMaxLength(512);
             entity.Property(e => e.SuccesesValue).HasMaxLength(512);
