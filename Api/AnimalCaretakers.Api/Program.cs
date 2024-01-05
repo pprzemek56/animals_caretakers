@@ -3,6 +3,7 @@ using AnimalCaretakers.Data;
 using FluentMigrator.Runner;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -33,7 +34,7 @@ builder.Services.AddSwaggerGen(o =>
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
-
+    o.CustomSchemaIds(type => type.ToString());
     o.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -57,6 +58,7 @@ builder.Services.AddSwaggerGen(o =>
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<ToSeePlansService>();
+builder.Services.AddScoped<MeetingsService>();
 
 builder.Services.AddFluentMigratorCore()
                 .ConfigureRunner(o => o.AddSQLite()

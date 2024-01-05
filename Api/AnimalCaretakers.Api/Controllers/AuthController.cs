@@ -15,6 +15,11 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    /// <summary>
+    /// Finds user with given credentials and generates auth jwt bearer token
+    /// </summary>
+    /// <param name="form">form with login and password</param>
+    /// <returns>JWT bearer token or bad request in case of error</returns>
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TokenModel))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
@@ -25,6 +30,11 @@ public class AuthController : ControllerBase
         return result.Match(p => Results.Ok(p), p => Results.BadRequest(p.Value));
     }
 
+    /// <summary>
+    /// Creates new user with given data in form
+    /// </summary>
+    /// <param name="form">Infos about new user</param>
+    /// <returns>Accepted or bad request in case of error</returns>
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]

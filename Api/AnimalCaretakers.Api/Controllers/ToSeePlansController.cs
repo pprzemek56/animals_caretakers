@@ -1,10 +1,8 @@
 using AnimalCaretakers.Api.Extensions;
-using AnimalCaretakers.Api.Models.Employers;
 using AnimalCaretakers.Api.Models.ToSeePlans;
 using AnimalCaretakers.Api.Services;
 using AnimalCaretakers.Data.Enums;
 using AnimalCaretakers.Paginations;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalCaretakers.Api.Controllers;
@@ -34,9 +32,9 @@ public class ToSeePlansController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailsModel))]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<DetailsModel>> SavePlanToSee(CreateModel form)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> SavePlanToSee(CreateModel form)
     {
         var result = await _toSeePlansService.Create(User.Id(), form.EmployeeId.Value);
 
@@ -51,9 +49,9 @@ public class ToSeePlansController : ControllerBase
     {
         var result = await _toSeePlansService.Delete(User.Id(), employeeId);
 
-         return result.Match<IActionResult>(
-            success => Ok(),
-            notFound => NotFound()
-        );
+        return result.Match<IActionResult>(
+           success => Ok(),
+           notFound => NotFound()
+       );
     }
 }

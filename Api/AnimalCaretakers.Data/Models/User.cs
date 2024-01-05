@@ -23,6 +23,10 @@ public partial class User
 
     public long SensitiveInfoId { get; set; }
 
+    public virtual ICollection<MeetingInvitation> MeetingInvitationEmployees { get; } = new List<MeetingInvitation>();
+
+    public virtual ICollection<MeetingInvitation> MeetingInvitationRecruiters { get; } = new List<MeetingInvitation>();
+
     public virtual UserSensitiveInfo SensitiveInfo { get; set; }
 
     public virtual ICollection<ToSeePlan> ToSeePlanEmployees { get; } = new List<ToSeePlan>();
