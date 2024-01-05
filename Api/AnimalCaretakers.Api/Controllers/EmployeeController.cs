@@ -12,7 +12,7 @@ namespace AnimalCaretakers.Api.Controllers;
 /// Employee related endpoints
 /// </summary>
 [ApiController]
-[Route("api/employers")]
+[Route("api/employees")]
 public class EmployeeController : ControllerBase
 {
     private readonly EmployeeService _employeeService;
@@ -36,7 +36,7 @@ public class EmployeeController : ControllerBase
     [HttpGet]
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<ListItemModel>))]
-    public async Task<ActionResult<Pagination<ListItemModel>>> GetEmployers([FromQuery] Pager pager, [FromQuery] FilterModel filter)
+    public async Task<ActionResult<Pagination<ListItemModel>>> GetEmployees([FromQuery] Pager pager, [FromQuery] FilterModel filter)
     {
         var result = await _employeeService.GetEmployers(pager, filter);
 

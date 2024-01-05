@@ -83,7 +83,7 @@ public class AuthService
             Password = HashPassword(form.Password),
             Surname = form.Surname,
             Username = form.Username,
-            UserTypeEnum = form.UserType,
+            UserTypeEnum = form.UserType.Value,
             /*SensitiveInfo = new UserSensitiveInfo()*/
             SensitiveInfo = new UserSensitiveInfo { SkillsValue = "", ExpectedSalaryValue = 0, PortfolioValue = "", SuccesesValue = "" },
 

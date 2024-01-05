@@ -38,7 +38,7 @@ public class ToSeePlansController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DetailsModel>> SavePlanToSee(CreateModel form)
     {
-        var result = await _toSeePlansService.Create(User.Id(), form.EmployeeId);
+        var result = await _toSeePlansService.Create(User.Id(), form.EmployeeId.Value);
 
         return result.Match<ActionResult>(p => Ok(), p => BadRequest(p.Value));
     }

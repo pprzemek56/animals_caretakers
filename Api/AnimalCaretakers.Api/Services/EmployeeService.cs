@@ -56,6 +56,7 @@ public class EmployeeService
             Id = user.Id,
             GivenName = user.GivenName,
             Surname = user.Surname,
+            VisitCount = user.VisitCounter,
             Skills = user.SensitiveInfo.Skills.Get(onlyPublicInfo),
             Portfolio = user.SensitiveInfo.Portfolio.Get(onlyPublicInfo),
             Succeses = user.SensitiveInfo.Succeses.Get(onlyPublicInfo),
