@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './RegisterForm.css'; // You will create this CSS file
+import './RegisterForm.css';
 
 function RegisterForm({ onClose, onLogIn }) {
   const [formData, setFormData] = useState({
@@ -7,6 +7,7 @@ function RegisterForm({ onClose, onLogIn }) {
     surname: '',
     username: '',
     password: '',
+    accountType: ''
   });
 
   const handleChange = (e) => {
@@ -17,7 +18,7 @@ function RegisterForm({ onClose, onLogIn }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevents the default form submission behavior
+    e.preventDefault();
 
     console.log(formData);
 
@@ -31,11 +32,9 @@ function RegisterForm({ onClose, onLogIn }) {
       });
 
       if (response.ok) {
-        // Successfully registered
         console.log('User registered successfully');
-        onClose(); // Close the form upon successful registration
+        onClose();
       } else {
-        // Handle errors (e.g., user already exists, server error)
         console.error('Failed to register user');
       }
     } catch (error) {
@@ -55,8 +54,13 @@ function RegisterForm({ onClose, onLogIn }) {
           <input type="text" placeholder="Surname" name="surname" value={formData.surname} onChange={handleChange} />
           <input type="text" placeholder="Username" name="username" value={formData.username} onChange={handleChange} />
           <input type="password" placeholder="Password" name="password" value={formData.password} onChange={handleChange} />
-          {/*<input type="email" placeholder="Email" />*/}
-          {/*<input type="password" placeholder="Repeat Password" />*/}
+          <div className="select-container">
+            <select name="accountType" id="accountType" onChange={handleChange} value={formData.accountType || ""}>
+              <option value="" disabled selected>Account Type</option>
+              <option value={0}>Recruiter</option>
+              <option value={1}>Employee</option>
+            </select>
+          </div>
           <button type="submit" >Sign up</button>
         </form>
         <p>
