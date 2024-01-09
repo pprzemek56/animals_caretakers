@@ -24,10 +24,10 @@
 .register-form button {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px; /* Reset margin to ensure alignment */
+  margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
 }
 
 .register-form button {
@@ -51,4 +51,75 @@
 
 .register-form h2 {
   text-align: center;
+}
+
+.select-container {
+    position: relative;
+    width: 100%;
+}
+
+select {
+    width: 100%;
+    padding: 8px 16px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select option[value=""][disabled] {
+    display: none;
+    color: gray;
+}
+
+/* Custom arrow */
+.select-container:after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #888;
+}
+
+select:required:invalid {
+    color: gray;
+}
+option[value=""][disabled] {
+    display: none;
+}
+option {
+    color: black;
+}
+
+select:hover {
+    border-color: #888;
+}
+select:focus {
+    outline: none;
+    border-color: #555;
+}
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+  display: block;
+  text-align: center;
+}
+
+input,
+select {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.select-container + .error {
+    position: absolute;
+    top: -1rem;
+    left: 0;
+    width: 100%;
 }
