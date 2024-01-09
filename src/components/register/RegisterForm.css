@@ -24,10 +24,10 @@
 .register-form button {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px; /* Reset margin to ensure alignment */
+  margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
 }
 
 .register-form button {
@@ -58,7 +58,6 @@
     width: 100%;
 }
 
-/* Style the select box */
 select {
     width: 100%;
     padding: 8px 16px;
@@ -66,9 +65,9 @@ select {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    -webkit-appearance: none; /* for Safari */
-    -moz-appearance: none; /* for Firefox */
-    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 select option[value=""][disabled] {
@@ -87,7 +86,6 @@ select option[value=""][disabled] {
     color: #888;
 }
 
-/* Ensure the first option is not selectable after a selection is made */
 select:required:invalid {
     color: gray;
 }
@@ -98,11 +96,30 @@ option {
     color: black;
 }
 
-/* Additional styling can be added here for hover effects, focus effects, etc. */
 select:hover {
     border-color: #888;
 }
 select:focus {
     outline: none;
     border-color: #555;
+}
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+  display: block;
+  text-align: center;
+}
+
+input,
+select {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.select-container + .error {
+    position: absolute;
+    top: -1rem;
+    left: 0;
+    width: 100%;
 }
