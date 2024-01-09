@@ -52,3 +52,10 @@
 .login-form h2 {
   text-align: center;
 }
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+  display: block;
+  text-align: center;
+}
