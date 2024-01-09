@@ -24,3 +24,6 @@ yarn-error.log*
 Api/AnimalCaretakers.Api/appsettings.json
 
 .idea
+
+*.db
+*.deb
