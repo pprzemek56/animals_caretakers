@@ -13,7 +13,7 @@ function Home() {
                   alt="Graphic representing pet care"
                   className="w-64 h-64 md:w-96 md:h-96 lg:w-[400px] lg:h-[400px] object-cover rounded-lg"
                   height="400"
-                  src="public/mainpage.webp"
+                  src="mainpage.webp"
                   style={{
                     aspectRatio: "400/400",
                     objectFit: "cover",
