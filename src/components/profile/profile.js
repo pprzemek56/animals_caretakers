@@ -1,62 +1,73 @@
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
-import { TabsTrigger, TabsList, TabsContent, Tabs } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
+import {useState} from "react";
 
-export default function Component() {
+import "./Profile.css";
+
+function Profile() {
+  const [selectedTab, setSelectedTab] = useState('profile');
+  // Example user data, you might be fetching this from an API or state
+  const user = {
+    name: "John",
+    surname: "Pet Owner"
+  };
+
+  // Function to extract initials
+  const getInitials = (name, surname) => {
+    return `${name[0]}${surname[0]}`;
+  };
+
+  // User's initials
+  const initials = getInitials(user.name, user.surname);
+
   return (
     <div className="flex flex-col items-center p-6 space-y-6">
-      <Avatar className="h-32 w-32">
-        <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-        <AvatarFallback>JP</AvatarFallback>
-      </Avatar>
+      <div className="avatar-circle">
+        {initials}
+      </div>
       <div className="text-center">
-        <h1 className="text-2xl font-bold">John Pet Owner</h1>
+        <h1 className="text-2xl font-bold">{user.name} {user.surname}</h1>
         <p className="text-gray-500 dark:text-gray-400">john.petowner@acme.inc</p>
         <p className="text-sm text-gray-500 dark:text-gray-400">
           A pet owner looking for a reliable and caring person to take care of my beloved animal.
         </p>
       </div>
-      <Tabs className="w-full max-w-md" defaultValue="profile">
-        <TabsList className="flex justify-center gap-2">
-          <TabsTrigger value="profile">Profile</TabsTrigger>
-          <TabsTrigger value="contact">Contact</TabsTrigger>
-          <TabsTrigger value="address">Address</TabsTrigger>
-          <TabsTrigger value="picture">Change Picture</TabsTrigger>
-        </TabsList>
-        <TabsContent value="profile">
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold">Profile</h2>
-            <p>Full Name: John Pet Owner</p>
-            <p>Email: john.petowner@acme.inc</p>
-            <p>Bio: A pet owner looking for a reliable and caring person to take care of my beloved animal.</p>
-            <Button className="w-full">Edit Profile</Button>
-          </div>
-        </TabsContent>
-        <TabsContent value="contact">
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold">Contact</h2>
-            <p>Phone Number: (123) 456-7890</p>
-            <Button className="w-full">Edit Contact</Button>
-          </div>
-        </TabsContent>
-        <TabsContent value="address">
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold">Address</h2>
-            <p>Street: 123 Main St</p>
-            <p>City: New York</p>
-            <p>State: NY</p>
-            <p>Zip Code: 10001</p>
-            <Button className="w-full">Edit Address</Button>
-          </div>
-        </TabsContent>
-        <TabsContent value="picture">
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold">Profile Picture</h2>
-            <img alt="Profile Picture" className="w-32 h-32 items-center" src="/placeholder.svg" />
-            <Button className="w-full">Change Your Picture</Button>
-          </div>
-        </TabsContent>
-      </Tabs>
+      {/* Simple buttons to toggle the tabs */}
+      <div className="w-full max-w-md flex justify-center gap-2">
+        <button onClick={() => setSelectedTab('profile')}>Profile</button>
+        <button onClick={() => setSelectedTab('contact')}>Contact</button>
+        <button onClick={() => setSelectedTab('address')}>Address</button>
+        <button onClick={() => setSelectedTab('picture')}>Change Picture</button>
+      </div>
+      {/* Conditional rendering for tab content */}
+      {selectedTab === 'profile' && (
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold">Profile</h2>
+          {/* Profile content */}
+          <button className="w-full">Edit Profile</button>
+        </div>
+      )}
+      {selectedTab === 'contact' && (
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold">Contact</h2>
+          {/* Contact content */}
+          <button className="w-full">Edit Contact</button>
+        </div>
+      )}
+      {selectedTab === 'address' && (
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold">Address</h2>
+          {/* Address content */}
+          <button className="w-full">Edit Address</button>
+        </div>
+      )}
+      {selectedTab === 'picture' && (
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold">Profile Picture</h2>
+          {/* Picture content */}
+          <button className="w-full">Change Your Picture</button>
+        </div>
+      )}
     </div>
   )
 }
+
+export default Profile;

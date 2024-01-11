@@ -1,0 +1,12 @@
+.avatar-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  background-color: #007bff; /* Choose your color */
+  color: white;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: bold;
+}
