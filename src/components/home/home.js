@@ -11,14 +11,12 @@ function Home() {
               <div className="mt-8">
                 <img
                   alt="Graphic representing pet care"
-                  className="w-64 h-64 md:w-96 md:h-96 lg:w-[400px] lg:h-[400px] object-cover rounded-lg"
+                  className="w-96 h-64 md:w-120 md:h-96 lg:w-[800px] lg:h-[400px] object-cover rounded-full"
                   height="400"
-                  src="public/mainpage.webp"
+                  src="/mainpage.webp"
                   style={{
-                    aspectRatio: "400/400",
                     objectFit: "cover",
                   }}
-                  width="400"
                 />
               </div>
             </main>
