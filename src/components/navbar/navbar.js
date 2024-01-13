@@ -8,7 +8,7 @@ function Navbar() {
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
 
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, logout, login } = useAuth();
     const handleShowLogin = () => {
         setShowRegister(false);
         setShowLogin(true);
@@ -24,15 +24,25 @@ function Navbar() {
           setShowRegister(false);
       };
 
+    const handleLogout = () => {
+        logout();
+        handleClose(); // Close any open forms when logging out
+    };
+
     return (
         <>
-            {showLogin && <LoginForm onClose={handleClose} onSignUp={handleShowRegister} />}
+            {showLogin && <LoginForm onClose={handleClose} onSignUp={handleShowRegister} onLoginSuccess={login}/>}
             {showRegister && <RegisterForm onClose={handleClose} onLogIn={handleShowLogin} />}
             <nav className="navbar">
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a onClick={handleShowLogin} className="button">Log in</a></li>
-                    {isLoggedIn && <li><a href="/profile" className="button">Profile</a></li>}
+                    {!isLoggedIn && <li><a onClick={handleShowLogin} className="button">Log in</a></li>}
+                    {isLoggedIn && (
+                        <>
+                            <li><a onClick={handleLogout} className="button">Log out</a></li>
+                            <li><a href="/profile" className="button">Profile</a></li>
+                        </>
+                    )}
                 </ul>
             </nav>
         </>

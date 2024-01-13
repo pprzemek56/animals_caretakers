@@ -11,7 +11,7 @@ export const attachTokenToRequest = (url, options = {}) => {
   }
   return fetch(url, options);
 };
-function LoginForm({ onClose, onSignUp }) {
+function LoginForm({ onClose, onSignUp, onLoginSuccess }) {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -58,6 +58,7 @@ function LoginForm({ onClose, onSignUp }) {
         const data = await response.json();
         localStorage.setItem('token', data.token);
         console.log('User login successfully');
+        onLoginSuccess();
         onClose();
       } else {
         console.error('Failed to login user');
