@@ -1,6 +1,16 @@
 import React, {useState} from 'react';
 import './LoginForm.css';
 
+export const attachTokenToRequest = (url, options = {}) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    options.headers = {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`,
+    };
+  }
+  return fetch(url, options);
+};
 function LoginForm({ onClose, onSignUp }) {
   const [formData, setFormData] = useState({
     username: '',
@@ -45,6 +55,8 @@ function LoginForm({ onClose, onSignUp }) {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
         console.log('User login successfully');
         onClose();
       } else {

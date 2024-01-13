@@ -32,8 +32,6 @@ function RegisterForm({ onClose, onLogIn }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
     if (!validateForm()) {
       console.log('Validation errors:', formErrors);
       return;

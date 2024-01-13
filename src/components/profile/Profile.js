@@ -1,10 +1,16 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import "./Profile.css";
 
 function Profile() {
   const [selectedTab, setSelectedTab] = useState('profile');
-  // Example user data, you might be fetching this from an API or state
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    const role = getUserRole();
+    setUserRole(role);
+  }, []);
+
   const user = {
     name: "John",
     surname: "Pet Owner"
@@ -17,6 +23,28 @@ function Profile() {
 
   // User's initials
   const initials = getInitials(user.name, user.surname);
+
+  const decodeJWT = (token) => {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) =>
+          '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        console.error('Error decoding token', e);
+        return null;
+      }
+  };
+
+  const getUserRole = () => {
+      const token = localStorage.getItem('token');
+      if (!token) return null;
+
+      const decodedToken = decodeJWT(token);
+      return decodedToken ? decodedToken.role : null;
+  };
 
   return (
     <div className="flex flex-col items-center p-6 space-y-6">

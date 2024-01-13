@@ -3,7 +3,7 @@ import { AuthProvider } from './AuthContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/home/home';
 import Navbar from './components/navbar/navbar';
-import Profile from "./components/profile/profile";
+import Profile from "./components/profile/Profile";
 
 function App() {
   return (
