@@ -3,13 +3,14 @@ import './RegisterForm.css';
 
 function RegisterForm({ onClose, onLogIn }) {
   const [formData, setFormData] = useState({
-    name: '',
+    givenName: '',
     surname: '',
     username: '',
     password: '',
-    accountType: ''
+    userType: ''
   });
   const [formErrors, setFormErrors] = useState({});
+  const [serverErrors, setServerErrors] = useState([]);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,22 +21,24 @@ function RegisterForm({ onClose, onLogIn }) {
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.name.trim()) errors.name = 'Name is required.';
+    if (!formData.givenName.trim()) errors.givenName = 'Name is required.';
     if (!formData.surname.trim()) errors.surname = 'Surname is required.';
     if (!formData.username.trim()) errors.username = 'Username is required.';
     if (!formData.password) errors.password = 'Password is required.';
-    if (!formData.accountType) errors.accountType = 'Account type is required.';
+    if (!formData.userType) errors.userType = 'Account type is required.';
 
     setFormErrors(errors);
-
-    return Object.keys(errors).length === 0;
+    
+    if (errors) {
+      console.log(errors);
+      return Object.keys(errors).length === 0;
+    } else {
+      return 1; // formularz przeszedl walidacje
+    }
   };
 
-  const handleSubmit = async (e) => {
-    if (!validateForm()) {
-      console.log('Validation errors:', formErrors);
-      return;
-    }
+  const registerUser = async (formData) => {
+    formData.userType = Number(formData.userType);
 
     try {
       const response = await fetch('http://localhost:5129/api/auth/register', {
@@ -46,16 +49,34 @@ function RegisterForm({ onClose, onLogIn }) {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      if (response.status == 202) {
         console.log('User registered successfully');
+        alert('Pomyślnie zarejestrowano użytkownika');
         onClose();
       } else {
-        console.error('Failed to register user');
+        const errorData = await response.json();
+        throw new Error(JSON.stringify(errorData.errors));
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error during registration', error);
+      const errorMessages = Object.values(JSON.parse(error.message));
+      setServerErrors(errorMessages); // informacje bledu z serwera
+
+      setTimeout(() => {
+        setServerErrors([]);  // usun błędy serwera po 8 sekundach
+      }, 8000);
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      registerUser(formData);
     }
   };
+    
   const handleFormClick = (e) => {
     e.stopPropagation();
   };
@@ -65,8 +86,8 @@ function RegisterForm({ onClose, onLogIn }) {
       <div className="register-form" onClick={handleFormClick}>
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
-          {formErrors.name && <label className="error">{formErrors.name}</label>}
-          <input type="text" placeholder="Name" name="name" value={formData.name} onChange={handleChange} />
+          {formErrors.givenName && <label className="error">{formErrors.givenName}</label>}
+          <input type="text" placeholder="Name" name="givenName" value={formData.givenName} onChange={handleChange} />
           {formErrors.surname && <label className="error">{formErrors.surname}</label>}
           <input type="text" placeholder="Surname" name="surname" value={formData.surname} onChange={handleChange} />
           {formErrors.username && <label className="error">{formErrors.username}</label>}
@@ -74,14 +95,20 @@ function RegisterForm({ onClose, onLogIn }) {
           {formErrors.password && <label className="error">{formErrors.password}</label>}
           <input type="password" placeholder="Password" name="password" value={formData.password} onChange={handleChange} />
           <div className="select-container">
-            {formErrors.accountType && <label className="error">{formErrors.accountType}</label>}
-            <select name="accountType" id="accountType" onChange={handleChange} value={formData.accountType || ""}>
+            {formErrors.userType && <label className="error">{formErrors.userType}</label>}
+            <select name="userType" id="userType" onChange={handleChange} value={formData.userType || ""}>
               <option value="" disabled>Account Type</option>
-              <option value="0">Recruiter</option>
-              <option value="1">Employee</option>
+              <option value={0}>Recruiter</option>
+              <option value={1}>Employee</option>
             </select>
           </div>
           <button type="submit">Sign up</button>
+
+          {/* Wyswietlenie opisu bledu z serwera */}
+          {Object.values(serverErrors).flat().map((error, index) => (
+            <p key={index} className="error">{error}</p>
+          ))}
+
         </form>
         <p>
           Already have an account?
