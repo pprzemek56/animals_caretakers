@@ -49,7 +49,7 @@ function RegisterForm({ onClose, onLogIn }) {
         body: JSON.stringify(formData),
       });
 
-      if (response.status == 202) {
+      if (response.status === 202) {
         console.log('User registered successfully');
         alert('Pomyślnie zarejestrowano użytkownika');
         onClose();
