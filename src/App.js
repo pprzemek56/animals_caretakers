@@ -6,6 +6,8 @@ import Navbar from './components/navbar/navbar';
 import Profile from './components/profile/Profile.js';
 import PrivateRoute from "./PrivateRoute";
 import LoginForm from './components/login/LoginForm';
+import Cards from './components/card/card';
+import Footer from './footer/footer';
 
 function App() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -24,6 +26,10 @@ function App() {
           {/* Define other routes as needed */}
         </Routes>
       </div>
+      <div className='card-container'>
+        <Cards /> 
+      </div>
+      <Footer />
     </Router>
   );
 }

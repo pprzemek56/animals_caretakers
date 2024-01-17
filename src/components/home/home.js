@@ -20,9 +20,9 @@ function Home() {
                 />
               </div>
             </main>
-            <footer className="flex items-center justify-center h-16 px-4 py-2 bg-blue-900 text-white md:px-6">
-              <p className="text-sm md:text-base">© CareTakers. All rights reserved.</p>
-            </footer>
+            <p className="mt-4 text-lg text-center md:text-xl lg:text-2xl">
+                Our professional are ready to take care of your pets
+              </p>
           </div>
         )
 }
