@@ -28,6 +28,18 @@ function Navbar() {
         logout();
         handleClose(); // Close any open forms when logging out
     };
+    const user = {
+        name: "John",
+        surname: "Pet Owner"
+      };
+    
+      // Function to extract initials
+      const getInitials = (name, surname) => {
+        return `${name[0]}${surname[0]}`;
+      };
+    
+      // User's initials
+      const initials = getInitials(user.name, user.surname);
 
     return (
         <>
@@ -35,11 +47,14 @@ function Navbar() {
             {showRegister && <RegisterForm onClose={handleClose} onLogIn={handleShowLogin} />}
             <nav class="navbar">
                 <ul>
-                    <a class="navbar-brand mr-auto ml-6"><img src="/logo.svg" alt="Caretakers" className="navbar-logo" /></a>
+                    <a href="#" class="navbar-brand mr-auto ml-6"><img src="/logo.svg" alt="Caretakers" className="navbar-logo" /></a>
                     <li><a href="/">Home</a></li>
                     {!isLoggedIn && <li><a onClick={handleShowLogin} className="button">Log in</a></li>}
                     {isLoggedIn && (
                         <>
+                            <div className="avatar-circle">
+                            {initials}
+                            </div>
                             <li><a onClick={handleLogout} className="button">Log out</a></li>
                             <li><a href="/profile" className="button">Profile</a></li>
                         </>

@@ -180,12 +180,10 @@ function Profile() {
     surname: "Pet Owner"
   };
 
-  // Function to extract initials
   const getInitials = (name, surname) => {
     return `${name[0]}${surname[0]}`;
   };
 
-  // User's initials
   const initials = getInitials(user.name, user.surname);
 
   const decodeJWT = (token) => {

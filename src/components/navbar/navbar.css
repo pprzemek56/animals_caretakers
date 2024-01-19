@@ -9,8 +9,34 @@
 .navbar-logo {
   height: 30px; /* Adjust as needed */
   rotate: -45deg;
-  fill:#4ea1f3; }
+  fill:#4ea1f3; 
+  animation: rotateBack 0.3s forwards;
+}
 
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+      height: 30px;
+    }
+    to {
+      transform: rotate(45deg);
+      height: 35px;
+    }
+  }
+  @keyframes rotateBack {
+    from {
+      transform: rotate(45deg);
+      height: 35px;
+    }
+    to {
+      transform: rotate(0deg);
+      height: 30px;
+    }
+  }
+  
+.navbar-logo:hover {
+  animation: rotate 0.3s linear 1 forwards;
+}
 .navbar ul {
   list-style: none;
   display: flex;
