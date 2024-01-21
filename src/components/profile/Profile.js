@@ -9,9 +9,8 @@ function Profile() {
   const [employeeData, setEmployeeData] = useState(null);
   const [formInputs, setFormInputs] = useState({});
 
-  // Function to fetch the employee's profile data
-  const fetchEmployeeData = async () => {
-    const response = await fetch('/api/employees/me', {
+  const fetchEmployeeData = useCallback(async () => {
+    const response = await fetch('http://localhost:5129/api/employees/me', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -20,27 +19,43 @@ function Profile() {
     if (response.ok) {
       const data = await response.json();
       setEmployeeData(data);
-      // Initialize form inputs with fetched data
       setFormInputs({
         givenName: data.givenName,
         surname: data.surname,
-        // ... other fields
+        visitCount: data.visitCount,
+        skills: data.skills,
+        portfolio: data.portfolio,
+        successes: data.successes,
+        expectedSalary: data.expectedSalary
       });
     } else {
       console.error('Failed to fetch employee data');
     }
-  };
+  });
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormInputs(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = event.target;
+    if (name.endsWith('IsPublic')) {
+      const key = name.replace('IsPublic', '');
+      setFormInputs(prev => ({
+        ...prev,
+        [key]: { ...prev[key], isPublic: checked }
+      }));
+    } else if (['skillsValue', 'portfolioValue', 'successesValue', 'expectedSalaryValue'].includes(name)) {
+      const key = name.replace('Value', '');
+      setFormInputs(prev => ({
+        ...prev,
+        [key]: { ...prev[key], value: type === 'number' ? Number(value) : value }
+      }));
+    } else {
+      setFormInputs(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const updateEmployeeData = async (event) => {
     event.preventDefault();
-    // PUT request to update the employee data
     try {
-      const response = await fetch('/api/employees', {
+      const response = await fetch('http://localhost:5129/api/employees', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -50,8 +65,7 @@ function Profile() {
       });
       if (response.ok) {
         console.log('Employee data updated successfully');
-        // Optionally fetch the updated data again
-        fetchEmployeeData();
+        await fetchEmployeeData();
       } else {
         console.error('Failed to update employee data');
       }
@@ -61,7 +75,7 @@ function Profile() {
   };
 
   const deleteEmployeeProfile = async () => {
-    const response = await fetch('/api/employees', {
+    const response = await fetch('http://localhost:5129/api/employees', {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -69,7 +83,6 @@ function Profile() {
     });
     if (response.ok) {
       console.log('Employee profile deleted');
-      // Handle additional logic for after deletion, like redirecting
     } else {
       console.error('Failed to delete employee profile');
     }
@@ -84,44 +97,10 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
-
-    const fetchEmployeeData = async () => {
-      try {
-        const response = await fetch('/api/employees/me', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (isMounted) {
-            setEmployeeData(data);
-            setFormInputs({
-              givenName: data.givenName,
-              surname: data.surname,
-              // ... other fields
-            });
-          }
-        } else {
-          console.error('Failed to fetch employee data');
-        }
-      } catch (error) {
-        console.error('Error fetching employee data', error);
-      }
-    };
-
-    if (userRole === 'Employee' && selectedTab === 'profile') {
-      fetchEmployeeData().then(r => console.log('Employee data fetched'));
+    if (userRole === 'Employee' && selectedTab === 'profile' && !employeeData) {
+      fetchEmployeeData().then();
     }
-
-    // Cleanup function to set isMounted to false when the component unmounts
-    return () => {
-      isMounted = false;
-    };
-  }, [userRole, selectedTab]);
+  }, [userRole, selectedTab, employeeData, fetchEmployeeData]);
 
   useEffect(() => {
     setUserRole(getUserRole());
@@ -135,11 +114,10 @@ function Profile() {
 
   const fetchMeetings = async () => {
     try {
-      const response = await fetch('/api/meetings', {
+      const response = await fetch('http://localhost:5129/api/meetings', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          // Other headers if needed
         }
       });
 
@@ -156,17 +134,15 @@ function Profile() {
 
   const updateMeetingStatus = async (meetingId, newStatus) => {
     try {
-      const response = await fetch(`/api/meetings/${meetingId}/${newStatus}`, {
+      const response = await fetch(`http://localhost:5129/api/meetings/${meetingId}/${newStatus}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          // Other headers if needed
         }
       });
 
       if (response.ok) {
-        // Fetch updated meetings list
-        fetchMeetings().then(r => console.log('Meetings fetched'));
+        fetchMeetings().then();
       } else {
         console.error('Failed to update meeting status');
       }
@@ -241,28 +217,162 @@ function Profile() {
           </div>
         )}
         {userRole === 'Employee' && selectedTab === 'profile' && (
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold">Your Profile</h2>
-            {employeeData ? (
-              <form onSubmit={updateEmployeeData}>
+        <div className="w-full max-w-2xl">
+          <h2 className="text-xl font-bold text-center mb-6">Your Profile</h2>
+          {employeeData ? (
+            <form onSubmit={updateEmployeeData} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="givenName">
+                  Name
+                </label>
                 <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="givenName"
                   type="text"
                   name="givenName"
                   value={formInputs.givenName || ''}
                   onChange={handleInputChange}
-                  // Add any other necessary attributes
                 />
-                {/* ... other input fields ... */}
-                <button type="submit">Update Profile</button>
-              </form>
-            ) : (
-              <p>Loading profile data...</p>
-            )}
-            <button onClick={deleteEmployeeProfile} className="bg-red-500 text-white py-1 px-2 rounded">
-              Delete Profile
-            </button>
-          </div>
-        )}
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="surname">
+                  Surname
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="surname"
+                  type="text"
+                  name="surname"
+                  value={formInputs.surname || ''}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="skills">
+                  Skills
+                </label>
+                <textarea
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="skills"
+                  name="skills"
+                  value={formInputs.skills?.value || ''}
+                  onChange={handleInputChange}
+                />
+                <div className="mt-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox"
+                      name="skillsIsPublic"
+                      checked={formInputs.skills?.isPublic || false}
+                      onChange={handleInputChange}
+                    />
+                    <span className="ml-2 text-gray-700 text-sm">Make skills public</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="portfolio">
+                  Portfolio
+                </label>
+                <textarea
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="portfolio"
+                  name="portfolio"
+                  value={formInputs.portfolio?.value || ''}
+                  onChange={handleInputChange}
+                />
+                <div className="mt-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox"
+                      name="portfolioIsPublic"
+                      checked={formInputs.portfolio?.isPublic || false}
+                      onChange={handleInputChange}
+                    />
+                    <span className="ml-2 text-gray-700 text-sm">Make portfolio public</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="succeses">
+                  Successes
+                </label>
+                <textarea
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="succeses"
+                  name="succeses"
+                  value={formInputs.successes?.value || ''}
+                  onChange={handleInputChange}
+                />
+                <div className="mt-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox"
+                      name="succesesIsPublic"
+                      checked={formInputs.successes?.isPublic || false}
+                      onChange={handleInputChange}
+                    />
+                    <span className="ml-2 text-gray-700 text-sm">Make successes public</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="expectedSalary">
+                  Expected Salary
+                </label>
+                <textarea
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="expectedSalary"
+                  name="expectedSalary"
+                  value={formInputs.expectedSalary?.value || ''}
+                  onChange={handleInputChange}
+                />
+                <div className="mt-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox"
+                      name="expectedSalaryIsPublic"
+                      checked={formInputs.expectedSalary?.isPublic || false}
+                      onChange={handleInputChange}
+                    />
+                    <span className="ml-2 text-gray-700 text-sm">Make expected salary public</span>
+                  </label>
+                </div>
+              </div>
+
+
+
+              {/* ... repeat for each field ... */}
+
+              <div className="flex items-center justify-between">
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Update Profile
+                </button>
+                <button
+                  onClick={deleteEmployeeProfile}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Delete Profile
+                </button>
+              </div>
+            </form>
+          ) : (
+            <p className="text-center">Loading profile data...</p>
+          )}
+        </div>
+      )}
       </div>
   );
 }
