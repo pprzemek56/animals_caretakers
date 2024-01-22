@@ -78,12 +78,12 @@ public class EmployeeController : ControllerBase
     }
 
     /// <summary>
-    /// Fetch details informations about currenty logged in employee
-    /// Allowed only for employee
+    /// Fetch details informations about currenty logged in user
+    /// Allowed for all users
     /// </summary>
     /// <returns>Employee details</returns>
     [HttpGet("me")]
-    [AuthorizeUserType(UserType.Employee)]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailsModel))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DetailsModel>> GetMyAccount()
@@ -94,12 +94,12 @@ public class EmployeeController : ControllerBase
     }
 
     /// <summary>
-    /// Update employee details informations
-    /// Allowed only for employee
+    /// Update user details
+    /// Allowed for all users
     /// </summary>
     /// <returns></returns>
     [HttpPut]
-    [AuthorizeUserType(UserType.Employee)]
+    [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailsModel))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DetailsModel>> UpdateMyAccount(UpdateModel form)
