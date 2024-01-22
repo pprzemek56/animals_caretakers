@@ -47,8 +47,7 @@ function Navbar() {
             {showRegister && <RegisterForm onClose={handleClose} onLogIn={handleShowLogin} />}
             <nav class="navbar">
                 <ul>
-                    <a href="#" class="navbar-brand mr-auto ml-6"><img src="/logo.svg" alt="Caretakers" className="navbar-logo" /></a>
-                    <li><a href="/">Home</a></li>
+                    <a href="/" class="navbar-brand mr-auto ml-6"><img src="/logo.svg" alt="Caretakers" className="navbar-logo" /></a>
                     {!isLoggedIn && <li><a onClick={handleShowLogin} className="button">Log in</a></li>}
                     {isLoggedIn && (
                         <>
