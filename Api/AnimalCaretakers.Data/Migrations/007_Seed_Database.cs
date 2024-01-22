@@ -7,6 +7,119 @@ public class SeedUsersTable : Migration
 {
    public override void Up()
     {
+
+        Insert.IntoTable("UserSensitiveInfos")
+            .Row(new
+            {
+                SkillsValue = "Brak małych dzieci, Brak toksycznych roślin, Brak innych zwierząt.",
+                SkillsIsPublic = true,
+                PortfolioValue = "Doświadczony opiekun z pasją do zwierząt.",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Pomoc w relokacji i adaptacji zwierząt w ogrodach zoologicznych.",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 21,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "",
+                SkillsIsPublic = true,
+                PortfolioValue = "Posiadam 2 małe pieski",
+                PortfolioIsPublic = true,
+                SuccesesValue = "",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 0,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "Opieka nad psami, kotami, ptakami. Prowadzenie szkoleń z zakresu behawiorystyki zwierząt.",
+                SkillsIsPublic = true,
+                PortfolioValue = "Współpracuję ze schroniskiem, a także udzielam się w programach edukacyjnych dla dzieci na temat opieki nad zwierzętami.",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Założenie fundacji wspierającej schroniska dla zwierząt.",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 16,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "",
+                SkillsIsPublic = true,
+                PortfolioValue = "Posiadam pająka i węża",
+                PortfolioIsPublic = true,
+                SuccesesValue = "",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 0,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "",
+                SkillsIsPublic = true,
+                PortfolioValue = "Posiadam dużego pieska i kota",
+                PortfolioIsPublic = true,
+                SuccesesValue = "",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 0,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "Brak małych dzieci, Brak toksycznych roślin, Pozwalam wejść na kanapę, Znajomość pierwszej pomocy",
+                SkillsIsPublic = true,
+                PortfolioValue = "Kocham przebywać ze zwierzętami, z przyjemnością zaopiekuję się Twoim pupilem. Odbyłem praktyki studencie w ogrodzie zoologicznym. Mieszkam w bloku i nie mam własnego zwierzaka.",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Przyjmę psy, koty, a także inne zwierzęta.",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 18,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "",
+                SkillsIsPublic = true,
+                PortfolioValue = "",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Posiadam piękną kotkę syjamską.",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 0,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "",
+                SkillsIsPublic = true,
+                PortfolioValue = "Jestem właścicielką rybek akwariowych i papugi falistej.",
+                PortfolioIsPublic = true,
+                SuccesesValue = "",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 0,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "Mieszkanie, Brak klatek, Brak osób palących, Brak małych dzieci, Brak toksycznych roślin, Pozwalam wejść na łóżko.",
+                SkillsIsPublic = true,
+                PortfolioValue = "Organizacja zbiórek karmy dla schronisk. Prowadzę szkolenia z zakresu behawiorystyki zwierząt",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Zaopiekuję się rybkami, gryzoniami, małym ssakiem, psami, kotami",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 21,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "Bliskość parku.",
+                SkillsIsPublic = true,
+                PortfolioValue = "Chętnie zaopiekuje się zwierzaczkiem. Odpowiadają mi tylko w weekendy, z powodu tego że w tygodniu mam szkołę np.",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Nie lubię kotów.",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 40,
+                ExpectedSalaryIsPublic = true
+            });
+
         Insert.IntoTable("Users")
             .Row(new 
             { 
@@ -109,127 +222,7 @@ public class SeedUsersTable : Migration
                 SensitiveInfoId = 10
             });
 
-        Insert.IntoTable("UserSensitiveInfos")
-            .Row(new 
-            { 
-                Id = 1,
-                SkillsValue = "Brak małych dzieci, Brak toksycznych roślin, Brak innych zwierząt.",
-                SkillsIsPublic = true,
-                PortfolioValue = "Doświadczony opiekun z pasją do zwierząt.",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Pomoc w relokacji i adaptacji zwierząt w ogrodach zoologicznych.",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 21,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new 
-            { 
-                Id = 2,
-                SkillsValue = "",
-                SkillsIsPublic = true,
-                PortfolioValue = "Posiadam 2 małe pieski",
-                PortfolioIsPublic = true,
-                SuccesesValue = "",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 0,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                Id = 3,
-                SkillsValue = "Opieka nad psami, kotami, ptakami. Prowadzenie szkoleń z zakresu behawiorystyki zwierząt.",
-                SkillsIsPublic = true,
-                PortfolioValue = "Współpracuję ze schroniskiem, a także udzielam się w programach edukacyjnych dla dzieci na temat opieki nad zwierzętami.",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Założenie fundacji wspierającej schroniska dla zwierząt.",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 16,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                Id = 4,
-                SkillsValue = "",
-                SkillsIsPublic = true,
-                PortfolioValue = "Posiadam pająka i węża",
-                PortfolioIsPublic = true,
-                SuccesesValue = "",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 0,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                Id = 5,
-                SkillsValue = "",
-                SkillsIsPublic = true,
-                PortfolioValue = "Posiadam dużego pieska i kota",
-                PortfolioIsPublic = true,
-                SuccesesValue = "",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 0,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                Id = 6,
-                SkillsValue = "Brak małych dzieci, Brak toksycznych roślin, Pozwalam wejść na kanapę, Znajomość pierwszej pomocy",
-                SkillsIsPublic = true,
-                PortfolioValue = "Kocham przebywać ze zwierzętami, z przyjemnością zaopiekuję się Twoim pupilem. Odbyłem praktyki studencie w ogrodzie zoologicznym. Mieszkam w bloku i nie mam własnego zwierzaka.",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Przyjmę psy, koty, a także inne zwierzęta.",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 18,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                Id = 7,
-                SkillsValue = "",
-                SkillsIsPublic = true,
-                PortfolioValue = "",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Posiadam piękną kotkę syjamską.",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 0,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                Id = 8,
-                SkillsValue = "",
-                SkillsIsPublic = true,
-                PortfolioValue = "Jestem właścicielką rybek akwariowych i papugi falistej.",
-                PortfolioIsPublic = true,
-                SuccesesValue = "",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 0,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                Id = 9,
-                SkillsValue = "Mieszkanie, Brak klatek, Brak osób palących, Brak małych dzieci, Brak toksycznych roślin, Pozwalam wejść na łóżko.",
-                SkillsIsPublic = true,
-                PortfolioValue = "Organizacja zbiórek karmy dla schronisk. Prowadzę szkolenia z zakresu behawiorystyki zwierząt",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Zaopiekuję się rybkami, gryzoniami, małym ssakiem, psami, kotami",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 21,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                Id = 10,
-                SkillsValue = "Bliskość parku.",
-                SkillsIsPublic = true,
-                PortfolioValue = "Chętnie zaopiekuje się zwierzaczkiem. Odpowiadają mi tylko w weekendy, z powodu tego że w tygodniu mam szkołę np.",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Nie lubię kotów.",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 40,
-                ExpectedSalaryIsPublic = true
-            });
+        
 
         Insert.IntoTable("ToSeePlans")
             .Row(new 

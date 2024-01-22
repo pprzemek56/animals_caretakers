@@ -39,11 +39,18 @@ public class EmployeeService
     {
         var user = await _context.Users
             .Include(p => p.SensitiveInfo)
-            .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)
+            .Where(p => p.Id == userId)
             .FirstOrDefaultAsync();
 
         if(user == null) 
             return new NotFound();
+
+        if (user.UserTypeEnum == UserType.Recruiter)
+            return new DetailsModel
+            {
+                GivenName = user.GivenName,
+                Surname = user.Surname
+            };
 
         if (incrementVisitCounter)
         {
@@ -68,7 +75,7 @@ public class EmployeeService
     {
         var user = await _context.Users
             .Include(p => p.SensitiveInfo)
-            .Where(p => p.UserType == (int)UserType.Employee && p.Id == userId)
+            .Where(p => p.Id == userId)
             .FirstOrDefaultAsync();
 
         if (user == null) return new NotFound();
@@ -76,10 +83,13 @@ public class EmployeeService
         user.GivenName = form.GivenName;
         user.Surname = form.Surname;
 
-        user.SensitiveInfo.Skills = form.Skills;
-        user.SensitiveInfo.Portfolio = form.Portfolio;
-        user.SensitiveInfo.Succeses = form.Succeses;
-        user.SensitiveInfo.ExpectedSalary = form.ExpectedSalary;
+        if(user.UserTypeEnum == UserType.Employee)
+        {
+            user.SensitiveInfo.Skills = form.Skills;
+            user.SensitiveInfo.Portfolio = form.Portfolio;
+            user.SensitiveInfo.Succeses = form.Succeses;
+            user.SensitiveInfo.ExpectedSalary = form.ExpectedSalary;
+        }
 
         await _context.SaveChangesAsync();
         
