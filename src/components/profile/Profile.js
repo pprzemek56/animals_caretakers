@@ -16,6 +16,7 @@ function Profile() {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     });
+
     if (response.ok) {
       const data = await response.json();
       setEmployeeData(data);
@@ -25,7 +26,7 @@ function Profile() {
         visitCount: data.visitCount,
         skills: data.skills,
         portfolio: data.portfolio,
-        successes: data.successes,
+        successes: data.succeses,
         expectedSalary: data.expectedSalary
       });
     } else {
@@ -256,7 +257,7 @@ function Profile() {
                 <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="skills"
-                  name="skills"
+                  name="skillsValue"
                   value={formInputs.skills?.value || ''}
                   onChange={handleInputChange}
                 />
@@ -281,7 +282,7 @@ function Profile() {
                 <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="portfolio"
-                  name="portfolio"
+                  name="portfolioValue"
                   value={formInputs.portfolio?.value || ''}
                   onChange={handleInputChange}
                 />
@@ -306,7 +307,7 @@ function Profile() {
                 <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="succeses"
-                  name="succeses"
+                  name="successesValue"
                   value={formInputs.successes?.value || ''}
                   onChange={handleInputChange}
                 />
@@ -315,7 +316,7 @@ function Profile() {
                     <input
                       type="checkbox"
                       className="form-checkbox"
-                      name="succesesIsPublic"
+                      name="successesIsPublic"
                       checked={formInputs.successes?.isPublic || false}
                       onChange={handleInputChange}
                     />
@@ -331,7 +332,7 @@ function Profile() {
                 <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="expectedSalary"
-                  name="expectedSalary"
+                  name="expectedSalaryValue"
                   value={formInputs.expectedSalary?.value || ''}
                   onChange={handleInputChange}
                 />
@@ -348,10 +349,6 @@ function Profile() {
                   </label>
                 </div>
               </div>
-
-
-
-              {/* ... repeat for each field ... */}
 
               <div className="flex items-center justify-between">
                 <button
