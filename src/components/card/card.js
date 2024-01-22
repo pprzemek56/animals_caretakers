@@ -5,6 +5,7 @@ function Card() {
   const users = [
     { id: 1, name: 'User 1', role: 'Recruiter', avatar: 'avatar1.jpg', description: 'Description 1' },
     { id: 2, name: 'User 2', role: 'Recruiter', avatar: 'avatar2.jpg', description: 'Description 2' },
+    { id: 3, name: 'Nigga', role: 'Recruiter', avatar: '/mainpage.webp', description: 'Desc'}
   ];
   return (
     <div className='card-container py-12'>
