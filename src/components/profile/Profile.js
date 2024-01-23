@@ -155,7 +155,12 @@ function Profile() {
   };
 
   const getInitials = (name, surname) => {
-    return `${name[0]}${surname[0]}`;
+    // Check if both name and surname are non-null and are strings
+    return [
+      name,
+      surname
+    ].map(part => typeof part === 'string' && part.length > 0 ? part[0].toUpperCase() : '')
+        .join('');
   };
 
   const initials = getInitials(formInputs?.givenName, formInputs?.surname);
