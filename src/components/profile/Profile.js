@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 
 import "./Profile.css";
+import Meetings from "./meetings/Meetings";
 
 function Profile() {
   const [selectedTab, setSelectedTab] = useState('profile');
@@ -183,31 +184,21 @@ function Profile() {
         </div>
         {/* Simple buttons to toggle the tabs */}
         <div className="w-full max-w-md flex justify-center gap-2">
-          {/* Additional tab for Recruiters */}
+          <button onClick={() => setSelectedTab('profile')}>Profile</button>
+          <button onClick={() => setSelectedTab('meetings')}>Meetings</button>
           {userRole === 'Recruiter' && (
-            <button onClick={() => setSelectedTab('meetings')}>Meetings</button>
+            <button onClick={() => setSelectedTab('saved-profiles')}>Saved Profiles</button>
           )}
         </div>
         {/* Meetings tab for Recruiters */}
-        {userRole === 'Recruiter' && selectedTab === 'meetings' && (
-          <div className="space-y-4">
-            <h2 className="text-lg font-bold">Pending Meetings</h2>
-            {/* Meetings content */}
-            {meetings.length > 0 ? (
-              meetings.map((meeting) => (
-                <div key={meeting.id} className="meeting-item flex justify-between items-center p-2 border-b">
-                  <span>{meeting.givenName} {meeting.surname}</span>
-                  {/* Add buttons or other elements to change the status */}
-                  <div>
-                    <button onClick={() => updateMeetingStatus(meeting.id, 'canceled')} className="m-2 bg-red-500 text-white py-1 px-2 rounded">Cancel</button>
-                    <button onClick={() => updateMeetingStatus(meeting.id, 'finished')} className="m-2 bg-green-500 text-white py-1 px-2 rounded">Finish</button>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No pending meetings.</p>
-            )}
-          </div>
+        {userRole === 'Recruiter' && selectedTab === 'profile' && (
+          <div className="space-y-4"/>
+        )}
+        {selectedTab === 'meetings' && (
+        <Meetings updateMeetingStatus={updateMeetingStatus} />
+      )}
+        {userRole === 'Recruiter' && selectedTab === 'saved-profiles' && (
+          <div className="space-y-4"/>
         )}
         {userRole === 'Employee' && selectedTab === 'profile' && (
         <div className="w-full max-w-2xl">
