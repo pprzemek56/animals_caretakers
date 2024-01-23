@@ -18,11 +18,11 @@ public partial class UserSensitiveInfo
     [NotMapped]
     public SensitiveInfo<string> Portfolio
     {
-        get => new(SuccesesValue, SuccesesIsPublic);
+        get => new(PortfolioValue, PortfolioIsPublic);
         set
         {
-            SuccesesValue = value.Value;
-            SuccesesIsPublic = value.IsPublic;
+            PortfolioValue = value.Value;
+            PortfolioIsPublic = value.IsPublic;
         }
     }
 
