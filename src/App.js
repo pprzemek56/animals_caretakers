@@ -17,17 +17,13 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<><Home />      <Cards /></> } />
           {isLoggedIn ? (
             <Route path="/profile" element={<Profile />} />
           ) : (
             <Route path="/profile" element={<LoginForm />} />
           )}
-          {/* Define other routes as needed */}
         </Routes>
-      </div>
-      <div className='card-container'>
-        <Cards /> 
       </div>
       <Footer />
     </Router>

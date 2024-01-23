@@ -31,17 +31,23 @@ function Card() {
   }, [page, pageSize]);
 
   return (
-    <div className='card-container py-12'>
-      {users.map(user => (
-          <div className="user-card" key={user.id}>
-            <img src={user.avatar} alt="User Avatar" className="user-avatar" />
-            <h2 className="user-name">{user.givenName} {user.surname}</h2>
-            {/* <p className="user-role">{user.role}</p> */}
-            {/* <p className="user-description">{user.description}</p> */}
-          </div>
-      ))}
+    <div>
+      <div className='card-container py-12 mx-14'>
+        {users.map(user => (
+            <div className="user-card" key={user.id}>
+              <div className="avatar-circle">
+                {user.givenName[0]}{user.surname[0]}
+              </div>
+              <h2 className="user-name">{user.givenName} {user.surname}</h2>
+              {/* <p className="user-role">{user.role}</p> */}
+              {/* <p className="user-description">{user.description}</p> */}
+            </div>
+        ))}
+        </div>
+      <div className="buttons">
       <button onClick={() => setPage(page => Math.max(page - 1, 1))}>Previous</button>
       <button onClick={() => setPage(page => page + 1)}>Next</button>
+      </div>
     </div>
   );
 }

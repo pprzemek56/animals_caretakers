@@ -51,9 +51,9 @@ function Navbar() {
                     {!isLoggedIn && <li><a onClick={handleShowLogin} className="button">Log in</a></li>}
                     {isLoggedIn && (
                         <>
-                            <div className="avatar-circle">
+                            {/* <div className="avatar-circle">
                             {initials}
-                            </div>
+                            </div> */}
                             <li><a onClick={handleLogout} className="button">Log out</a></li>
                             <li><a href="/profile" className="button">Profile</a></li>
                         </>
