@@ -26,7 +26,7 @@ function Profile() {
         visitCount: data.visitCount,
         skills: data.skills,
         portfolio: data.portfolio,
-        successes: data.succeses,
+        succeses: data.succeses,
         expectedSalary: data.expectedSalary
       });
     } else {
@@ -42,7 +42,7 @@ function Profile() {
         ...prev,
         [key]: { ...prev[key], isPublic: checked }
       }));
-    } else if (['skillsValue', 'portfolioValue', 'successesValue', 'expectedSalaryValue'].includes(name)) {
+    } else if (['skillsValue', 'portfolioValue', 'succesesValue', 'expectedSalaryValue'].includes(name)) {
       const key = name.replace('Value', '');
       setFormInputs(prev => ({
         ...prev,
@@ -55,6 +55,7 @@ function Profile() {
 
   const updateEmployeeData = async (event) => {
     event.preventDefault();
+    console.log(formInputs);
     try {
       const response = await fetch('http://localhost:5129/api/employees', {
         method: 'PUT',
@@ -307,8 +308,8 @@ function Profile() {
                 <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="succeses"
-                  name="successesValue"
-                  value={formInputs.successes?.value || ''}
+                  name="succesesValue"
+                  value={formInputs.succeses?.value || ''}
                   onChange={handleInputChange}
                 />
                 <div className="mt-2">
@@ -316,8 +317,8 @@ function Profile() {
                     <input
                       type="checkbox"
                       className="form-checkbox"
-                      name="successesIsPublic"
-                      checked={formInputs.successes?.isPublic || false}
+                      name="succesesIsPublic"
+                      checked={formInputs.succeses?.isPublic || false}
                       onChange={handleInputChange}
                     />
                     <span className="ml-2 text-gray-700 text-sm">Make successes public</span>
