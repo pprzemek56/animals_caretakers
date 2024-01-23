@@ -153,16 +153,11 @@ function Profile() {
     }
   };
 
-  const user = {
-    name: "John",
-    surname: "Pet Owner"
-  };
-
   const getInitials = (name, surname) => {
     return `${name[0]}${surname[0]}`;
   };
 
-  const initials = getInitials(user.name, user.surname);
+  const initials = getInitials(formInputs?.givenName, formInputs?.surname);
 
   const decodeJWT = (token) => {
       try {
@@ -184,11 +179,7 @@ function Profile() {
           {initials}
         </div>
         <div className="text-center">
-          <h1 className="text-2xl font-bold">{user.name} {user.surname}</h1>
-          <p className="text-gray-500 dark:text-gray-400">john.petowner@acme.inc</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            A pet owner looking for a reliable and caring person to take care of my beloved animal.
-          </p>
+          <h1 className="text-2xl font-bold">{formInputs.givenName} {formInputs.surname}</h1>
         </div>
         {/* Simple buttons to toggle the tabs */}
         <div className="w-full max-w-md flex justify-center gap-2">
