@@ -17,7 +17,10 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<><Home />      <Cards /></> } />
+          <Route path="/" element={
+          <><Home />     
+           <Cards /></> 
+          } />
           {isLoggedIn ? (
             <Route path="/profile" element={<Profile />} />
           ) : (
