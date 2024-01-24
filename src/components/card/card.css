@@ -54,3 +54,41 @@
     font-size: 2rem;
     font-weight: bold;
   }
+  .user-detail-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-width: 400px;
+    width: 100%;
+    border-radius: 3%;
+  }
+  
+  .user-detail-popup h2 {
+    margin-bottom: 10px;
+  }
+  .user-name{
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .user-detail-popup p {
+    margin-bottom: 15px;
+  }
+  
+  .user-detail-popup button {
+    padding: 8px 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 9%;
+  }
+  
+  .user-detail-popup button:hover {
+    background-color: #0056b3;
+  }

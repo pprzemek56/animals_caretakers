@@ -59,6 +59,7 @@ function LoginForm({ onClose, onSignUp, onLoginSuccess }) {
         localStorage.setItem('token', data.token);
         console.log('User login successfully');
         onLoginSuccess();
+        window.location.reload();
         onClose();
       } else {
         console.error('Failed to login user');

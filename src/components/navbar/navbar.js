@@ -76,6 +76,7 @@ const Navbar = () => {
         logout();
         handleClose();
         setOpen(false);
+        window.location.reload();
     };
 
 
