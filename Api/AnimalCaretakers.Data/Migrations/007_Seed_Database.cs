@@ -22,17 +22,6 @@ public class SeedUsersTable : Migration
             })
             .Row(new
             {
-                SkillsValue = "",
-                SkillsIsPublic = true,
-                PortfolioValue = "Posiadam 2 małe pieski",
-                PortfolioIsPublic = true,
-                SuccesesValue = "",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 0,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
                 SkillsValue = "Opieka nad psami, kotami, ptakami. Prowadzenie szkoleń z zakresu behawiorystyki zwierząt.",
                 SkillsIsPublic = true,
                 PortfolioValue = "Współpracuję ze schroniskiem, a także udzielam się w programach edukacyjnych dla dzieci na temat opieki nad zwierzętami.",
@@ -40,6 +29,50 @@ public class SeedUsersTable : Migration
                 SuccesesValue = "Założenie fundacji wspierającej schroniska dla zwierząt.",
                 SuccesesIsPublic = true,
                 ExpectedSalaryValue = 16,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "Brak małych dzieci, Brak toksycznych roślin, Pozwalam wejść na kanapę, Znajomość pierwszej pomocy",
+                SkillsIsPublic = true,
+                PortfolioValue = "Kocham przebywać ze zwierzętami, z przyjemnością zaopiekuję się Twoim pupilem. Odbyłem praktyki studencie w ogrodzie zoologicznym. Mieszkam w bloku i nie mam własnego zwierzaka.",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Przyjmę psy, koty, a także inne zwierzęta.",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 18,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "Mieszkanie, Brak klatek, Brak osób palących, Brak małych dzieci, Brak toksycznych roślin, Pozwalam wejść na łóżko.",
+                SkillsIsPublic = true,
+                PortfolioValue = "Organizacja zbiórek karmy dla schronisk. Prowadzę szkolenia z zakresu behawiorystyki zwierząt",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Zaopiekuję się rybkami, gryzoniami, małym ssakiem, psami, kotami",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 21,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "Bliskość parku.",
+                SkillsIsPublic = true,
+                PortfolioValue = "Chętnie zaopiekuje się zwierzaczkiem. Odpowiadają mi tylko w weekendy, z powodu tego że w tygodniu mam szkołę np.",
+                PortfolioIsPublic = true,
+                SuccesesValue = "Nie lubię kotów.",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 40,
+                ExpectedSalaryIsPublic = true
+            })
+            .Row(new
+            {
+                SkillsValue = "",
+                SkillsIsPublic = true,
+                PortfolioValue = "Posiadam 2 małe pieski",
+                PortfolioIsPublic = true,
+                SuccesesValue = "",
+                SuccesesIsPublic = true,
+                ExpectedSalaryValue = 0,
                 ExpectedSalaryIsPublic = true
             })
             .Row(new
@@ -66,31 +99,9 @@ public class SeedUsersTable : Migration
             })
             .Row(new
             {
-                SkillsValue = "Brak małych dzieci, Brak toksycznych roślin, Pozwalam wejść na kanapę, Znajomość pierwszej pomocy",
-                SkillsIsPublic = true,
-                PortfolioValue = "Kocham przebywać ze zwierzętami, z przyjemnością zaopiekuję się Twoim pupilem. Odbyłem praktyki studencie w ogrodzie zoologicznym. Mieszkam w bloku i nie mam własnego zwierzaka.",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Przyjmę psy, koty, a także inne zwierzęta.",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 18,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
                 SkillsValue = "",
                 SkillsIsPublic = true,
-                PortfolioValue = "",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Posiadam piękną kotkę syjamską.",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 0,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                SkillsValue = "",
-                SkillsIsPublic = true,
-                PortfolioValue = "Jestem właścicielką rybek akwariowych i papugi falistej.",
+                PortfolioValue = "Posiadam piękną kotkę syjamską",
                 PortfolioIsPublic = true,
                 SuccesesValue = "",
                 SuccesesIsPublic = true,
@@ -99,24 +110,13 @@ public class SeedUsersTable : Migration
             })
             .Row(new
             {
-                SkillsValue = "Mieszkanie, Brak klatek, Brak osób palących, Brak małych dzieci, Brak toksycznych roślin, Pozwalam wejść na łóżko.",
+                SkillsValue = "",
                 SkillsIsPublic = true,
-                PortfolioValue = "Organizacja zbiórek karmy dla schronisk. Prowadzę szkolenia z zakresu behawiorystyki zwierząt",
+                PortfolioValue = "Jestem właścicielką rybek akwariowych i papugi falistej",
                 PortfolioIsPublic = true,
-                SuccesesValue = "Zaopiekuję się rybkami, gryzoniami, małym ssakiem, psami, kotami",
+                SuccesesValue = "",
                 SuccesesIsPublic = true,
-                ExpectedSalaryValue = 21,
-                ExpectedSalaryIsPublic = true
-            })
-            .Row(new
-            {
-                SkillsValue = "Bliskość parku.",
-                SkillsIsPublic = true,
-                PortfolioValue = "Chętnie zaopiekuje się zwierzaczkiem. Odpowiadają mi tylko w weekendy, z powodu tego że w tygodniu mam szkołę np.",
-                PortfolioIsPublic = true,
-                SuccesesValue = "Nie lubię kotów.",
-                SuccesesIsPublic = true,
-                ExpectedSalaryValue = 40,
+                ExpectedSalaryValue = 0,
                 ExpectedSalaryIsPublic = true
             });
 
@@ -139,7 +139,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 0,
                 VisitCounter = 0,
-                SensitiveInfoId = 2
+                SensitiveInfoId = 6
             })
             .Row(new
             {
@@ -149,7 +149,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 1,
                 VisitCounter = 8,
-                SensitiveInfoId = 3
+                SensitiveInfoId = 2
             })
             .Row(new
             {
@@ -159,7 +159,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 0,
                 VisitCounter = 10,
-                SensitiveInfoId = 4
+                SensitiveInfoId = 7
             })
             .Row(new
             {
@@ -169,7 +169,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 0,
                 VisitCounter = 11,
-                SensitiveInfoId = 5
+                SensitiveInfoId = 8
             })
              .Row(new
             {
@@ -179,7 +179,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 1,
                 VisitCounter = 7,
-                SensitiveInfoId = 6
+                SensitiveInfoId = 3
             })
             .Row(new
             {
@@ -189,7 +189,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 0,
                 VisitCounter = 2,
-                SensitiveInfoId = 7
+                SensitiveInfoId = 9
             })
             .Row(new
             {
@@ -199,7 +199,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 0,
                 VisitCounter = 6,
-                SensitiveInfoId = 8
+                SensitiveInfoId = 10
             })
             .Row(new
             {
@@ -209,7 +209,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 1,
                 VisitCounter = 21,
-                SensitiveInfoId = 9
+                SensitiveInfoId = 4
             })
             .Row(new
             {
@@ -219,7 +219,7 @@ public class SeedUsersTable : Migration
                 Password = "$2a$12$Pg6VxkeseOC0659kVeqaU.qKcEFfGgwuasiQZRAu3.5G4XjwVONVe",
                 UserType = 1,
                 VisitCounter = 0,
-                SensitiveInfoId = 10
+                SensitiveInfoId = 5
             });
 
         

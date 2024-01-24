@@ -11,7 +11,7 @@ const Navbar = () => {
     const { isLoggedIn, logout, login } = useAuth();
     const [user, setUser] = useState({givenName: '', surname: ''});
     const [open, setOpen] = useState(false);
-
+        
     useEffect(() => {
         let handler = (e) => {
             if (!e.target.closest('.dropdown-menu')) {
@@ -76,7 +76,7 @@ const Navbar = () => {
         logout();
         handleClose();
         setOpen(false);
-        window.location.reload();
+        // window.location.reload();    // not working with UserProfile logout
     };
 
 
